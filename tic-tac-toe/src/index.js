@@ -1,5 +1,5 @@
 /**
- * Built by following the tutorial at:
+ * Based on the tutorial at:
  * https://reactjs.org/tutorial/tutorial.html
  */
 
@@ -210,8 +210,12 @@ class Game extends React.Component {
         const winner = getWinner(current.squares);
 
         /**
-         * The buttons for the previous moves.
+         * The code below was used for creating buttons to return to previous game states.
          */
+        /*
+        /**
+         * The buttons for the previous moves.
+         *
         const moves = history.map((step, move) => {
 
             const desc = move ?
@@ -220,7 +224,7 @@ class Game extends React.Component {
             
             /**
              * For each move in the game's history, a list item that contains a button is created.
-             */
+             *
             return (
 
                 /**
@@ -228,12 +232,16 @@ class Game extends React.Component {
                  * This allows React to maintain state between re-renders.
                  * 
                  * It's strongly recommended that proper keys are assigned when building dynamic lists.
-                 */
+                 *
                 <li key={move}>
                     <button onClick={() => this.jumpTo(move)}>{desc}</button>
                 </li>
             );
         });
+        */
+
+       const desc = 'Restart';
+       const move = <button onClick={() => this.jumpTo(0)}>{desc}</button>
 
         /**
          * Useful message based on the state of the game.
@@ -252,9 +260,11 @@ class Game extends React.Component {
                     />
 
                 </div>
-                <div className="game-info">
+                <div className="game-new">
+                    <div>{move}</div>
+                </div>
+                <div className="game-status">
                     <div>{status}</div>
-                    <ol>{moves}</ol>
                 </div>
             </div>
         );
