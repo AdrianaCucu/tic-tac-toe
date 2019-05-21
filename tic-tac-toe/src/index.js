@@ -40,70 +40,7 @@ function Square(props) {
     );
 }
 
-/**
- * The state is stored in the Board component (not in the individual Square components).
- */
 class Board extends React.Component {
-
-    /**
-     * Constructor for an empty tic-tac-toe board.
-     * When the Board's state changes, the Square components re-render automatically.
-     * 
-     * @param {*} props - arbitrary (passed by the parent)
-     */
-    constructor(props) {
-        super(props);
-        this.state = {
-            squares: Array(9).fill(null),
-
-            /**
-             * 'X' starts first by default.
-             */
-            xIsNext: true
-        };
-    }
-
-    /**
-     * Updates the state of the Board when a square is clicked.
-     * 
-     * @param {*} i - the square that is updated
-     */
-    handleClick(i) {
-
-        /**
-         * Uses a copy of the squares array rather than modifying the existing array.
-         * 
-         * Immutability = replace the data with a new copy with the desired changes
-         * Benefits of immutability:
-         * -> complex features are easier to implement (e.g. ability to undo and redo previous moves)
-         * -> keeping previous versions of the game's history intact (can reuse them later)
-         * -> easier to detect changes in immutable objects
-         * -> easy to determine when a component requires re-rendering (when changes are made)
-         * -> helps you build pure components
-         */
-        const squares = this.state.squares.slice();
-
-        /**
-         * If the game is finished or if the square is not empty, the click is ignored.
-         */
-        if (getWinner(squares) || squares[i])
-            return;
-
-        /**
-         * Ternary statement:
-         * If xIsNext is true, set 'X', else set 'O'.
-         */
-        squares[i] = this.state.xIsNext ? 'X' : 'O';
-      
-        this.setState({
-            squares: squares,
-
-            /**
-             * At each turn, the player is changed ('X' or 'O').
-             */
-            xIsNext: !this.state.xIsNext
-        });
-    }
 
     /**
      * The Board component tells each Square what to display.
@@ -117,26 +54,20 @@ class Board extends React.Component {
          */
         return (
             <Square 
-                value={this.state.squares[i]} 
+                value={this.props.squares[i]} 
 
                 /**
                  * Passes down a function from Board to Square.
                  * Square calls this function when a square is clicked.
                  */
-                onClick={() => this.handleClick(i)} 
+                onClick={() => this.props.onClick(i)} 
             />
         );
     }
 
     render() {
-
-        const winner = getWinner(this.state.squares);
-        const status = winner ? ("Winner: " + winner) 
-            : ('Next player: ' + (this.state.xIsNext ? 'X' : 'O'));
-
         return (
             <div>
-                <div className="status">{status}</div>
                 <div className="board-row">
                     {this.renderSquare(0)}
                     {this.renderSquare(1)}
@@ -157,28 +88,178 @@ class Board extends React.Component {
     }
 }
 
+/**
+ * The state of the game is stored here (not in the board or the squares).
+ */
 class Game extends React.Component {
+
+    /**
+     * Constructor for an empty tic-tac-toe board.
+     * When the Game's state changes, the Square components re-render automatically.
+     * 
+     * @param {*} props
+     */
+    constructor(props) {
+
+        super(props);
+        this.state = {
+
+            /**
+             * SToring the history of the game enables us to access past moves.
+             */
+            history: [{
+                squares: Array(9).fill(null)
+            }],
+
+            /**
+             * The step we are currently viewing.
+             */
+            stepNumber: 0,
+
+            /**
+             * 'X' starts first by default.
+             */
+            xIsNext: true
+        };
+    }
+
+    /**
+     * Updates the state of the game when a square is clicked.
+     * 
+     * @param {*} i - the square that is updated
+     */
+    handleClick(i) {
+
+        /**
+         * When going back to a previous state, this ensures that all states after the selected one are discarded.
+         */
+        const history = this.state.history.slice(0, this.state.stepNumber + 1);
+        const current = history[history.length - 1];
+
+        /**
+         * Uses a copy of the squares array rather than modifying the existing array.
+         * 
+         * Immutability = replace the data with a new copy with the desired changes
+         * Benefits of immutability:
+         * -> complex features are easier to implement (e.g. ability to undo and redo previous moves)
+         * -> keeping previous versions of the game's history intact (can reuse them later)
+         * -> easier to detect changes in immutable objects
+         * -> easy to determine when a component requires re-rendering (when changes are made)
+         * -> helps you build pure components
+         */
+        const squares = current.squares.slice();
+
+        /**
+         * If the game is finished or if the square is not empty, the click is ignored.
+         */
+        if (getWinner(squares) || squares[i])
+            return;
+
+        /**
+         * Ternary statement:
+         * If xIsNext is true, set 'X', else set 'O'.
+         */
+        squares[i] = this.state.xIsNext ? 'X' : 'O';
+
+        this.setState({
+            history: history.concat([{
+                squares: squares
+            }]),
+
+            /**
+             * Updates the step number both for normal moves and when going back to a previous state.
+             */
+            stepNumber: history.length,
+
+            /**
+             * At each turn, the player is changed ('X' or 'O').
+             */
+            xIsNext: !this.state.xIsNext
+        });
+    }
+
+    /**
+     * Used to go back to previous game states.
+     * 
+     * @param {*} step - the previous game state
+     */
+    jumpTo(step) {
+        this.setState({
+            stepNumber: step,
+
+            /**
+             * The 'X' player has the even steps, the 'O' player has the odd steps.
+             */
+            xIsNext: (step % 2) === 0
+        });
+    }
+
     render() {
+
+        const history = this.state.history;
+
+        /**
+         * The current state of the game based on the stepNumber.
+         */
+        const current = history[this.state.stepNumber];
+
+        /**
+         * If one of the players has one, winner is either 'X' or 'O'.
+         * Otherwise, winner is null.
+         */
+        const winner = getWinner(current.squares);
+
+        /**
+         * The buttons for the previous moves.
+         */
+        const moves = history.map((step, move) => {
+
+            const desc = move ?
+                'Go to move #' + move :
+                'Go to game start';
+            
+            /**
+             * For each move in the game's history, a list item that contains a button is created.
+             */
+            return (
+
+                /**
+                 * Keys tell React about the identity of each component.
+                 * This allows React to maintain state between re-renders.
+                 * 
+                 * It's strongly recommended that proper keys are assigned when building dynamic lists.
+                 */
+                <li key={move}>
+                    <button onClick={() => this.jumpTo(move)}>{desc}</button>
+                </li>
+            );
+        });
+
+        /**
+         * Useful message based on the state of the game.
+         */
+        const status = winner ? 
+            ('Winner: ' + winner) :
+            ('Next player: ' + (this.state.xIsNext ? 'X' : 'O'));
+
         return (
             <div className="game">
                 <div className="game-board">
-                    <Board />
+
+                    <Board 
+                        squares={current.squares}
+                        onClick={(i) => this.handleClick(i)}
+                    />
+
                 </div>
                 <div className="game-info">
-                    <div>{/* status */}</div>
-                    <ol>{/* TODO */}</ol>
+                    <div>{status}</div>
+                    <ol>{moves}</ol>
                 </div>
             </div>
         );
     }
 }
-
-// ===========================================================================
-
-ReactDOM.render(
-    <Game />,
-    document.getElementById('root')
-);
 
 /**
  * Used to check whether one of the players has won.
@@ -187,6 +268,9 @@ ReactDOM.render(
  */
 function getWinner(squares) {
 
+    /**
+     * All the possible lines for winning the game.
+     */
     const lines = [
         [0, 1, 2],
         [3, 4, 5],
@@ -212,3 +296,10 @@ function getWinner(squares) {
      */
     return null;
 }
+
+// ===========================================================================
+
+ReactDOM.render(
+    <Game />,
+    document.getElementById('root')
+);
