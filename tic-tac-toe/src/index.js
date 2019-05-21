@@ -13,7 +13,7 @@ import './index.css';
  * Passing props from parents to children is how information flows in React apps.
  * 
  * To "remember" things (like being clicked), components use state.
- * React components can have state by setting this.state in the constructor.
+ * React components can have state by setting this.state (private) in the constructor.
  * 
  * prop = arbitrary input
  */
@@ -55,6 +55,11 @@ class Board extends React.Component {
         super(props);
         this.state = {
             squares: Array(9).fill(null),
+
+            /**
+             * 'X' starts first by default.
+             */
+            xIsNext: true
         };
     }
 
@@ -77,8 +82,27 @@ class Board extends React.Component {
          * -> helps you build pure components
          */
         const squares = this.state.squares.slice();
-        squares[i] = 'X';
-        this.setState({squares: squares});
+
+        /**
+         * If the game is finished or if the square is not empty, the click is ignored.
+         */
+        if (getWinner(squares) || squares[i])
+            return;
+
+        /**
+         * Ternary statement:
+         * If xIsNext is true, set 'X', else set 'O'.
+         */
+        squares[i] = this.state.xIsNext ? 'X' : 'O';
+      
+        this.setState({
+            squares: squares,
+
+            /**
+             * At each turn, the player is changed ('X' or 'O').
+             */
+            xIsNext: !this.state.xIsNext
+        });
     }
 
     /**
@@ -105,7 +129,10 @@ class Board extends React.Component {
     }
 
     render() {
-        const status = 'Next player: X';
+
+        const winner = getWinner(this.state.squares);
+        const status = winner ? ("Winner: " + winner) 
+            : ('Next player: ' + (this.state.xIsNext ? 'X' : 'O'));
 
         return (
             <div>
@@ -152,3 +179,36 @@ ReactDOM.render(
     <Game />,
     document.getElementById('root')
 );
+
+/**
+ * Used to check whether one of the players has won.
+ * 
+ * @param {*} squares - the squares of the board 
+ */
+function getWinner(squares) {
+
+    const lines = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ];
+
+    /**
+     * If a player has won, the function returns their symbol ('X' or 'O').
+     */
+    for (let i = 0; i < lines.length; i++) {
+        const [a, b, c] = lines[i];
+        if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c])
+            return squares[a];
+    }
+
+    /**
+     * If the game has not been won, returns null.
+     */
+    return null;
+}
