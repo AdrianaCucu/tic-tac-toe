@@ -254,23 +254,33 @@ class Game extends React.Component {
         }
 
         return (
-            <div className="game">
-                <div className="game-board">
 
-                    <Board 
-                        squares={current.squares}
-                        onClick={(i) => this.handleClick(i)}
-                    />
+            /**
+             * Like a div, but is not rendered in the DOM.
+             * Useful to use as a root tag for a Component whithin the virtual DOM.
+             */
+            <React.Fragment>
+                <div className="game">
+                    <div className="game-board">
 
+                        <Board 
+                            squares={current.squares}
+                            onClick={(i) => this.handleClick(i)}
+                        />
+
+                    </div>
+                    <div className="game-info">
+                        <div>{moves}</div>
+                    </div>
+                    <div className="game-status">
+                        <div id="status">{status}</div>
+                        <div id="emoticon">{emoticon}</div>
+                    </div>
                 </div>
-                <div className="game-info">
-                    <div>{moves}</div>
-                </div>
-                <div className="game-status">
-                    <div id="status">{status}</div>
-                    <div id="emoticon">{emoticon}</div>
-                </div>
-            </div>
+                <footer>
+                    Made with ❤ ⠀· ⠀<a href="https://github.com/AdrianaCucu" target="_blank">GitHub</a>
+                </footer>
+            </React.Fragment>
         );
     }
 }

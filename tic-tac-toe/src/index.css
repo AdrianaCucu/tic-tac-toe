@@ -3,12 +3,22 @@ body {
     color: #EB2188;
     font: 14px "Proxima Nova", sans-serif;
     border: 20px solid #080A52;
+    margin: 0;
     padding: 0;
     height: auto;
 }
 
+footer {
+    text-align: center;
+}
+
 li {
     list-style-type: none;
+}
+
+a:link, a:visited, a:hover, a:active{
+    color: #EB2188;
+    text-decoration: none;
 }
 
 .move {
