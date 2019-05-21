@@ -1,8 +1,26 @@
 body {
     position: relative;
-    font: 14px "Century Gothic", Futura, serif;
-    border: 20px solid black;
-    padding: 10px;
+    color: #EB2188;
+    font: 14px "Proxima Nova", sans-serif;
+    border: 20px solid #080A52;
+    padding: 0;
+    height: auto;
+}
+
+li {
+    list-style-type: none;
+}
+
+.move {
+    color: #080A52;
+    background-color: #EB2188;
+    border: 3px solid #080A52;
+    font-weight: bold;
+    margin-left: -5px;
+    margin-top: -5px;;
+    height: 58px;
+    width: 215px;
+    cursor: pointer;
 }
 
 .board-row:after {
@@ -16,18 +34,19 @@ body {
 }
 
 .square {
-    background: #fff;
-    border: 1px solid #999;
+    color: #080A52;
+    background: #EB2188;
+    border: 5px solid #080A52;
     float: left;
-    font-size: 24px;
+    font-size: 120px;
     font-weight: bold;
-    line-height: 34px;
-    height: 34px;
+    line-height: 170px;
+    height: 170px;
     margin-right: -1px;
     margin-top: -1px;
     padding: 0;
     text-align: center;
-    width: 34px;
+    width: 170px;
     cursor: pointer;
 }
 
@@ -36,17 +55,20 @@ body {
 }
 
 .kbd-navigation .square:focus {
-    background: #ddd;
+    background: #080A52;
 }
 
 .tictactoe {
     height: fill;
-    border: 10px solid black;
+    border: 10px solid #080A52;
 }
 
 .game {
+    background-color: #080A52;
+    display: flex;
+    flex-direction: row;
     height: fill;
-    border: 60px solid black;
+    border: 60px solid #080A52;
 }
 
 .game-board{
@@ -59,27 +81,32 @@ body {
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    padding: 10px;
-    border: 5px solid black;
+    padding: 10px #080A52;
+    border: 5px solid #080A52;
 }
 
-.game-new {
+.game-info {
     right: 0;
-    margin-right: 85px;
+    margin-right: 80px;
     position: absolute;
-    width: 100px;
-    height: 50px;
+    width: 200px;
+    height: auto;
     display: inline-block;
-    padding: 10px;
-    border: 5px solid black;
+    padding: 0;
 }
 
 .game-status {
+    font-size: 30px;
+    font-weight: bold;
     position: absolute;
-    width: 150px;
-    height: 30px;
+    width: 200px;
+    height: auto;
     display: inline-block;
     text-align: center;
-    padding: 10px;
-    border: 5px solid black;
+    padding: 0;
+}
+
+#emoticon {
+    margin-top: 80%;
+    font-size: 80px;
 }

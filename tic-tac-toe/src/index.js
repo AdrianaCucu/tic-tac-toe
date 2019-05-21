@@ -159,7 +159,7 @@ class Game extends React.Component {
          * Ternary statement:
          * If xIsNext is true, set 'X', else set 'O'.
          */
-        squares[i] = this.state.xIsNext ? 'X' : 'O';
+        squares[i] = this.state.xIsNext ? '╳' : '◯';
 
         this.setState({
             history: history.concat([{
@@ -210,21 +210,17 @@ class Game extends React.Component {
         const winner = getWinner(current.squares);
 
         /**
-         * The code below was used for creating buttons to return to previous game states.
+         * The buttons for the previous game states.
          */
-        /*
-        /**
-         * The buttons for the previous moves.
-         *
         const moves = history.map((step, move) => {
 
             const desc = move ?
                 'Go to move #' + move :
-                'Go to game start';
+                'Restart';
             
             /**
              * For each move in the game's history, a list item that contains a button is created.
-             *
+             */
             return (
 
                 /**
@@ -232,23 +228,30 @@ class Game extends React.Component {
                  * This allows React to maintain state between re-renders.
                  * 
                  * It's strongly recommended that proper keys are assigned when building dynamic lists.
-                 *
+                 */
                 <li key={move}>
-                    <button onClick={() => this.jumpTo(move)}>{desc}</button>
+                    <button className="move" onClick={() => this.jumpTo(move)}>{desc}</button>
                 </li>
             );
         });
-        */
 
-       const desc = 'Restart';
-       const move = <button onClick={() => this.jumpTo(0)}>{desc}</button>
+       /**
+        * For the 'Restart' button.
+        */
+       const move = <button onClick={() => this.jumpTo(0)}>{'Restart'}</button>
 
         /**
          * Useful message based on the state of the game.
          */
-        const status = winner ? 
-            ('Winner: ' + winner) :
-            ('Next player: ' + (this.state.xIsNext ? 'X' : 'O'));
+        let status = 'Next player: ' + (this.state.xIsNext ? '╳' : '◯');
+        let emoticon = '◔̯◔';
+        if (winner) {
+            status = winner + '  wins. Yay!!!';
+            emoticon = '◔⚬◔';
+        } else if (history.length === 10) {
+            status = 'It\'s a tie! Try again?';
+            emoticon = '٩◔̯◔۶';
+        }
 
         return (
             <div className="game">
@@ -260,11 +263,12 @@ class Game extends React.Component {
                     />
 
                 </div>
-                <div className="game-new">
-                    <div>{move}</div>
+                <div className="game-info">
+                    <div>{moves}</div>
                 </div>
                 <div className="game-status">
-                    <div>{status}</div>
+                    <div id="status">{status}</div>
+                    <div id="emoticon">{emoticon}</div>
                 </div>
             </div>
         );
