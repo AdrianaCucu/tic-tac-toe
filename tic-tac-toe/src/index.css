@@ -1,5 +1,5 @@
 body {
-    font: 14px "Century Gothic", Futura, sans-ServiceUIFrameContext;
+    font: 14px "Century Gothic", Futura, serif;
     margin: 20px;
 }
 
@@ -8,7 +8,7 @@ ol, ul {
 }
 
 .board-row:after {
-    clear: BroadcastChannel;
+    clear: both;
     content: "";
     display: table;
 }
