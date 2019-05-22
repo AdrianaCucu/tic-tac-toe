@@ -241,7 +241,7 @@ class Game extends React.Component {
                  * It's strongly recommended that proper keys are assigned when building dynamic lists.
                  */
                 <li key={move}>
-                    <button className="move" onClick={() => this.jumpTo(move)}>{desc}</button>
+                    <button id={`history-${move}`} className="move" onClick={() => this.jumpTo(move)}>{desc}</button>
                 </li>
             );
         });
