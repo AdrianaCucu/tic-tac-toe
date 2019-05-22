@@ -53,14 +53,14 @@ class Board extends React.Component {
          * Passes a prop from the squares array to a child Square component.
          */
         return (
-            <Square 
-                value={this.props.squares[i]} 
+            <Square
+                value={this.props.squares[i]}
 
                 /**
                  * Passes down a function from Board to Square.
                  * Square calls this function when a square is clicked.
                  */
-                onClick={() => this.props.onClick(i)} 
+                onClick={() => this.props.onClick(i)}
             />
         );
     }
@@ -119,7 +119,9 @@ class Game extends React.Component {
             /**
              * 'X' starts first by default.
              */
-            xIsNext: true
+            xIsNext: true,
+
+            winStateReached: false
         };
     }
 
@@ -217,7 +219,7 @@ class Game extends React.Component {
             const desc = move ?
                 'Go to move #' + move :
                 'Restart';
-            
+
             /**
              * For each move in the game's history, a list item that contains a button is created.
              */
@@ -235,10 +237,10 @@ class Game extends React.Component {
             );
         });
 
-       /**
-        * For the 'Restart' button.
-        */
-       const move = <button onClick={() => this.jumpTo(0)}>{'Restart'}</button>
+        /**
+         * For the 'Restart' button.
+         */
+        const move = <button onClick={() => this.jumpTo(0)}>{'Restart'}</button>
 
         /**
          * Useful message based on the state of the game.
@@ -246,9 +248,9 @@ class Game extends React.Component {
         let status = 'Next player: ' + (this.state.xIsNext ? '╳' : '◯');
         let emoticon = '◔̯◔';
         if (winner) {
-            status = winner + '  wins. Yay!!!';
+            status = winner + ' wins. Yay!!!';
             emoticon = '◔⚬◔';
-        } else if (history.length === 10) {
+        } else if (isFull(current.squares)) {
             status = 'It\'s a tie! Try again?';
             emoticon = '٩◔̯◔۶';
         }
@@ -263,7 +265,7 @@ class Game extends React.Component {
                 <div className="game">
                     <div className="game-board">
 
-                        <Board 
+                        <Board
                             squares={current.squares}
                             onClick={(i) => this.handleClick(i)}
                         />
@@ -278,7 +280,7 @@ class Game extends React.Component {
                     </div>
                 </div>
                 <footer>
-                    Made with ❤ ⠀· ⠀<a href="https://github.com/AdrianaCucu" target="_blank">GitHub</a>
+                    Made with ❤ by A.C. ⠀· ⠀<a href="https://github.com/AdrianaCucu" target="_blank">GitHub</a>
                 </footer>
             </React.Fragment>
         );
@@ -319,6 +321,18 @@ function getWinner(squares) {
      * If the game has not been won, returns null.
      */
     return null;
+}
+
+/**
+ * Used to check whether the boad is full/
+ * 
+ * @param {*} squares - the squares of the board
+ */
+function isFull(squares) {
+    for (let i = 0; i < squares.length; i++)
+        if (squares[i] === null)
+            return false;
+    return true;
 }
 
 // ===========================================================================
