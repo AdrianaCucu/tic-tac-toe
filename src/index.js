@@ -247,11 +247,6 @@ class Game extends React.Component {
         });
 
         /**
-         * For the 'Restart' button.
-         */
-        const move = <button onClick={() => this.jumpTo(0)}>{'Restart'}</button>
-
-        /**
          * Useful message based on the state of the game.
          */
         let status = 'Next player: ' + (this.state.xIsNext ? '╳' : '◯');
