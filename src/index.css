@@ -153,3 +153,27 @@ a:link, a:visited, a:hover, a:active{
 #emoticon:hover {
     color: #080A52;
 }
+
+@keyframes float {
+    0% { opacity: 1;
+         top: 0;
+      transform: rotateZ(0deg);
+       }
+    12% {transform: rotateZ(-10deg);}
+    24% {transform: rotateZ(10deg);}
+    40% {transform: rotateZ(-6deg);}
+    70% {transform: rotateZ(5deg) scale(0.8);
+         opacity: .8; }
+    
+    100% { opacity: 0;
+           top: -60px;
+           transform: rotateZ(-3deg) scale(0.6);
+         }
+}
+
+#heart:hover {
+    position: relative;
+    top: 0;
+    left: 0;
+    animation: float 1s ease-out forwards;
+}

@@ -284,7 +284,7 @@ class Game extends React.Component {
                     </div>
                 </div>
                 <footer>
-                    Made with ❤ by A.C. ⠀· ⠀<a href="https://github.com/AdrianaCucu" target="_blank">GitHub</a>
+                    Made with <span id="heart">❤</span> by A.C. ⠀· ⠀<a href="https://github.com/AdrianaCucu" target="_blank">GitHub</a>
                 </footer>
             </React.Fragment>
         );
