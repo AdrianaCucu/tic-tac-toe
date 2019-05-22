@@ -119,9 +119,7 @@ class Game extends React.Component {
             /**
              * 'X' starts first by default.
              */
-            xIsNext: true,
-
-            winStateReached: false
+            xIsNext: true
         };
     }
 
@@ -186,6 +184,17 @@ class Game extends React.Component {
      * @param {*} step - the previous game state
      */
     jumpTo(step) {
+
+        /**
+         * If the game is restarted, "deletes" the history.
+         */
+        if (step === 0)
+            this.setState({
+                history: [{
+                    squares: Array(9).fill(null)
+                }]
+            });
+
         this.setState({
             stepNumber: step,
 
@@ -324,7 +333,7 @@ function getWinner(squares) {
 }
 
 /**
- * Used to check whether the boad is full/
+ * Used to check whether the board is full.
  * 
  * @param {*} squares - the squares of the board
  */

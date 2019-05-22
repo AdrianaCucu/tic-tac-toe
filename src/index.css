@@ -2,14 +2,15 @@ body {
     position: relative;
     color: #EB2188;
     font: 14px "Proxima Nova", sans-serif;
-    border: 20px solid #080A52;
     margin: 0;
     padding: 0;
     height: auto;
 }
 
 footer {
+    background-color: #080A52;
     text-align: center;
+    margin-top: -2%;
 }
 
 li {
@@ -19,18 +20,6 @@ li {
 a:link, a:visited, a:hover, a:active{
     color: #EB2188;
     text-decoration: none;
-}
-
-.move {
-    color: #080A52;
-    background-color: #EB2188;
-    border: 3px solid #080A52;
-    font-weight: bold;
-    margin-left: -5px;
-    margin-top: -5px;;
-    height: 58px;
-    width: 215px;
-    cursor: pointer;
 }
 
 .board-row:after {
@@ -70,7 +59,6 @@ a:link, a:visited, a:hover, a:active{
 
 .tictactoe {
     height: fill;
-    border: 10px solid #080A52;
 }
 
 .game {
@@ -78,7 +66,6 @@ a:link, a:visited, a:hover, a:active{
     display: flex;
     flex-direction: row;
     height: fill;
-    border: 60px solid #080A52;
 }
 
 .game-board{
@@ -91,32 +78,67 @@ a:link, a:visited, a:hover, a:active{
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    padding: 10px #080A52;
-    border: 5px solid #080A52;
 }
 
 .game-info {
-    right: 0;
-    margin-right: 80px;
+    display: flex;
+    flex-direction: row;
     position: absolute;
-    width: 200px;
-    height: auto;
-    display: inline-block;
+    align-items: right;
+    margin-right: 80px;
+    top: 50%;
+    left: 85%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
     padding: 0;
 }
 
-.game-status {
-    font-size: 30px;
+.move {
+    color: #080A52;
+    background-color: #EB2188;
+    border: 3px solid #080A52;
     font-weight: bold;
+    margin-left: -5px;
+    margin-top: -5px;;
+    height: 58px;
+    width: 215px;
+    cursor: pointer;
+}
+
+.game-status {
+    display: flex;
+    flex-direction: row;
     position: absolute;
-    width: 200px;
-    height: auto;
+    align-items: center;
+    justify-content: center;
+    top: 30%;
+    left: 15%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-size: 230%;
+    font-weight: bold;
+    width: 20%;
+    height: 100%;
     display: inline-block;
     text-align: center;
     padding: 0;
 }
 
+#status {
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    top: 35%;
+    left: 30%;
+    transform: translate(0, 0);
+    text-align: center;
+}
+
 #emoticon {
-    margin-top: 80%;
-    font-size: 80px;
+    position: absolute;
+    align-items: center;
+    top: 60%;
+    left: 35%;
+    font-size: 300%;
+    text-align: center;
 }
