@@ -274,17 +274,15 @@ class Game extends React.Component {
 
           <Board squares={current.squares} onClick={i => this.handleClick(i)} />
 
-          <div className="ui container game-info">
-           {moves}
-          </div>
-
-          <footer>
-            Made with<span id="heart"> ❤ </span>by A.C. ⠀· ⠀
-            <a href="https://github.com/AdrianaCucu" target="_blank">
-              GitHub
-            </a>
-          </footer>
+          <div className="ui container game-info">{moves}</div>
         </div>
+
+        <footer>
+          Made with<span id="heart"> ❤ </span>by A.C. ⠀· ⠀
+          <a href="https://github.com/AdrianaCucu" target="_blank">
+            GitHub
+          </a>
+        </footer>
       </React.Fragment>
     );
   }

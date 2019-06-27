@@ -1,6 +1,38 @@
+a:link,
+a:visited,
+a:hover,
+a:active {
+  color: #eb2188;
+  text-decoration: none;
+}
+
 .board-row {
   width: 60vmin;
   display: inline-flex;
+}
+
+body {
+  color: #eb2188;
+  background-color: #080a52;
+  font: 14px 'Proxima Nova', sans-serif;
+}
+
+button {
+  width: 25vh;
+  height: 6.2vh;
+  color: #080a52;
+  background-color: #eb2188;
+  border: 0 solid #eb2188;
+  font-weight: bold;
+  font-size: 2.2vh;
+}
+
+button:active,
+button:hover,
+button:focus {
+  color: #eb2188;
+  background-color: #080a52;
+  outline: 0;
 }
 
 .centered-text {
@@ -9,6 +41,16 @@
 
 #emoticon {
   font-size: 15vmin;
+}
+
+footer {
+  background-color: #080a52;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 5vh;
+  font-size: 1.8vh;
+  text-align: center;
 }
 
 .game-board {
@@ -27,11 +69,14 @@
   height: 35vmin;
 }
 
+li {
+  list-style-type: none;
+}
+
 .page-container {
-    display: grid;
-    justify-items: center;
-    grid-template-columns: repeat(auto-fill, minmax(60vmin, 1fr));
-    grid-gap: 3.5vh 2vw;
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(60vmin, 1fr));
 }
 
 .square {
