@@ -1,151 +1,48 @@
-body {
-    position: relative;
-    color: #EB2188;
-    font: 14px "Proxima Nova", sans-serif;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-}
-
-footer {
-    background-color: #080A52;
-    text-align: center;
-    margin-top: -2%;
-}
-
-li {
-    list-style-type: none;
-}
-
-a:link, a:visited, a:hover, a:active{
-    color: #EB2188;
-    text-decoration: none;
-}
-
-.status {
-    margin-bottom: 10px;
-}
-
-.square {
-    color: #080A52;
-    background: #EB2188;
-    border: 3px solid #080A52;
-    float: left;
-    font-size: 4em;
-    font-weight: 900;
-    line-height: 1em;
-    height: 2.5em;
-    width: 2.5em;
-    padding-bottom: 0;
-    text-align: center;
-    cursor: pointer;
-}
-
-.square:focus {
-    outline: none;
-}
-
-.square:hover {
-    color: #EB2188;
-    background: #080A52;
-}
-
-.kbd-navigation .square:focus {
-    background: #080A52;
-}
-
-.game {
-    background-color: #080A52;
-    display: flex;
-    flex-direction: row;
-    height: 100vh;
-    width: 100%;
-}
-
-.game-board{
-    height: 30em;
-    width: 30em;
-    display: flex;
-    flex-direction: row;
-    position: absolute;
-    top: 25em;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
 .board-row {
-    height: 9em;
-    width: 30em;
+  width: 60vmin;
+  display: inline-flex;
 }
 
-.board-row:after {
-    clear: both;
-    content: "";
-    display: table;
-}
-
-.game-info {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    text-align: center;
-    top: 10.6em;
-    right: 12em;
-    padding: 0;
-}
-
-.move {
-    color: #080A52;
-    background-color: #EB2188;
-    border: 0 solid #080A52;
-    font-weight: bold;
-    margin-top: -4.5px;
-    height: 3.4em;
-    width: 215px;
-    cursor: pointer;
-}
-
-.move:active, .move:hover, .move:focus {
-    color: #EB2188;
-    background-color: #080A52;
-    outline: 0;
-}
-
-.game-status {
-    flex-direction: column;
-    position: absolute;
-    top: 10.5em;
-    left: 8.5em;
-    transform: translate(-50%, -50%);
-    font-size: 2.5em;
-    font-weight: bold;
-    width: 9em;
-    height: 13em;
-    display: inline-block;
-    text-align: center;
-    padding: 0;
-}
-
-#history-0:focus {
-    color: #080A52;
-    background-color: #EB2188;
-}
-
-#history-0:active, #history-0:hover {
-    color: #EB2188;
-    background-color: #080A52;
-}
-
-#status {
-    position: absolute;
-    left: 1em;
-    width: 6em;
+.centered-text {
+  text-align: center;
 }
 
 #emoticon {
-    position: absolute;
-    align-items: center;
-    top: 1.5em;
-    left: 0.5em;
-    font-size: 3em;
+  font-size: 15vmin;
+}
+
+.game-board {
+  height: 65vmin;
+  width: 60vmin;
+  background-color: #080a52;
+  color: #eb2188;
+  padding: 10vmin;
+}
+
+.game-info {
+  padding: 10vmin;
+}
+
+.game-status {
+  height: 35vmin;
+}
+
+.page-container {
+    display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(60vmin, 1fr));
+    grid-gap: 3.5vh 2vw;
+}
+
+.square {
+  height: 20vmin;
+  width: 20vmin;
+  font-size: 10vmin;
+  justify-content: center;
+  margin: 0.5vmin;
+  display: inline-flex;
+}
+
+#status {
+  font-size: 8vmin;
 }
