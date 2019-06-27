@@ -152,7 +152,7 @@ class Game extends React.Component {
      * Ternary statement:
      * If xIsNext is true, set 'X', else set 'O'.
      */
-    squares[i] = this.state.xIsNext ? '╳' : '◯';
+    squares[i] = this.state.xIsNext ? 'X' : 'O';
 
     this.setState({
       history: history.concat([
@@ -246,7 +246,7 @@ class Game extends React.Component {
     /**
      * Useful message based on the state of the game.
      */
-    let status = 'Next player: ' + (this.state.xIsNext ? '╳' : '◯');
+    let status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     let emoticon = '◔̯◔';
     if (winner) {
       status = winner + ' wins. Yay!!!';
@@ -264,7 +264,7 @@ class Game extends React.Component {
       <React.Fragment>
         <div className="ui container segment page-container">
           <div className="ui container game-status">
-            <div className="centered-text" id="status">
+            <div id="status">
               {status}
             </div>
             <div className="centered-text" id="emoticon">

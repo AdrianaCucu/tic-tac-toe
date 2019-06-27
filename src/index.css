@@ -14,7 +14,7 @@ a:active {
 body {
   color: #eb2188;
   background-color: #080a52;
-  font: 14px 'Proxima Nova', sans-serif;
+  font: 14px;
 }
 
 button {
@@ -25,6 +25,7 @@ button {
   border: 0 solid #eb2188;
   font-weight: bold;
   font-size: 2.2vh;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 button:active,
@@ -58,15 +59,17 @@ footer {
   width: 60vmin;
   background-color: #080a52;
   color: #eb2188;
-  padding: 10vmin;
+  padding: 8vmin;
 }
 
 .game-info {
-  padding: 10vmin;
+  padding: 8vmin;
 }
 
 .game-status {
-  height: 35vmin;
+  padding-top: 8vmin;
+  height: 40vmin;
+  display: inline-grid;
 }
 
 li {
@@ -82,12 +85,13 @@ li {
 .square {
   height: 20vmin;
   width: 20vmin;
-  font-size: 10vmin;
+  font-size: 15vmin;
   justify-content: center;
   margin: 0.5vmin;
   display: inline-flex;
 }
 
 #status {
-  font-size: 8vmin;
+  font-size: 7vmin;
+  height: 15vmin;
 }
